@@ -1,7 +1,19 @@
 var express = require('express');
 const mongoose = require('mongoose');
+var bodyParser = require('body-parser')
 
 var app = express();
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
+// importar rutas
+
+var appRoutes = require('./routes/app');
+var usuariosRoutes = require('./routes/usuario');
+var loginRoutes = require('./routes/login');
 
 // conexion a la bd
 
@@ -13,13 +25,9 @@ mongoose.connection.openUri('mongodb://localhost:27017/hospitaldb', (err, res) =
 });
 // rutas
 
-// el next se usa cuando llamamos un middleware
-app.get('/', (req, res, next) => {
-    res.status(403).json({
-        ok: true,
-        mensaje: 'Peticion realizada correctaente'
-    });
-});
+app.use('/usuario', usuariosRoutes);
+app.use('/login', loginRoutes);
+app.use('/', appRoutes);
 
 // escuchar peticiones
 
