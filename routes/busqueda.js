@@ -32,7 +32,7 @@ app.get('/coleccion/:tabla/:busqueda', (req, res, next) => {
     }
 
     promesa.then( data => {
-        return res.status(400).json({
+        return res.status(200).json({
             ok: true,
             [tabla]: data // propiedad de objeto computada, no es la palabra tabla, es el resultado de lo que tenga la variable tabala definida arriba
         });

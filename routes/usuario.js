@@ -16,9 +16,9 @@ app.get('/', (req, res, next) => {
 
     var desde = req.query.desde || 0;
     desde = Number(desde);
-    Usuario.find({}, 'nombre email img role')
+    Usuario.find({}, 'nombre email img role google')
         .skip(desde) // salta la cantidad de registros
-        .limit(15)
+        .limit(5)
         .exec(
         (err, usuarios) => {
             if ( err ) {
@@ -46,7 +46,7 @@ app.get('/', (req, res, next) => {
 // =============================================
 //  Crear nuevo usuario
 // =============================================
-app.post('/', mdAutenticacion.verificaToken, (req, res) => {
+app.post('/', /*mdAutenticacion.verificaToken,*/ (req, res) => {
     // esto solo funciona con el bodyparser
     var body = req.body;
 
